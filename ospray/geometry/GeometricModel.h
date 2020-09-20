@@ -21,6 +21,10 @@ struct OSPRAY_SDK_INTERFACE GeometricModel : public ManagedObject
 
   bool invertedNormals() const;
 
+  bool hasMaterialData() const;
+  const Data &matData();
+  std::vector<void *> &ispcMatPtrs();
+
  private:
   Ref<Geometry> geom;
   Ref<const Data> materialData;
@@ -47,6 +51,21 @@ inline Geometry &GeometricModel::geometry()
 inline bool GeometricModel::invertedNormals() const
 {
   return invertNormals;
+}
+
+inline bool GeometricModel::hasMaterialData() const
+{
+  return (bool)materialData;
+}
+
+inline const Data &GeometricModel::matData()
+{
+  return *materialData;
+}
+
+inline std::vector<void *> &GeometricModel::ispcMatPtrs()
+{
+  return ispcMaterialPtrs;
 }
 
 } // namespace ospray
